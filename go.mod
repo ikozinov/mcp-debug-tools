@@ -1,4 +1,4 @@
-module github.com/hwanyong/mcp-debug-tools
+module github.com/ikozinov/mcp-debug-tools
 
 go 1.25.5
 

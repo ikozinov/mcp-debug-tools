@@ -94,7 +94,7 @@ VSCode에서 서버로 디버깅 기능을 제공합니다.
 - [VSCode 마켓플레이스의 MCP Debug Tools](https://marketplace.visualstudio.com/items?itemName=uhd.mcp-debug-tools)
 
 **방법 3: 다운로드 링크**
-- [릴리스](https://github.com/hwanyong/mcp-debug-tools/releases)
+- [릴리스](https://github.com/ikozinov/mcp-debug-tools/releases)
 
 ### 2. CLI 도구
 
@@ -102,11 +102,11 @@ AI 도구와 VSCode를 연결하는 클라이언트입니다.
 
 **방법 1: Go Install**
 ```bash
-go install github.com/hwanyong/mcp-debug-tools/cmd/mcp-debug-tools@latest
+go install github.com/ikozinov/mcp-debug-tools/cmd/mcp-debug-tools@latest
 ```
 
 **방법 2: 릴리스 바이너리 다운로드**
-1. [Releases](https://github.com/hwanyong/mcp-debug-tools/releases)로 이동합니다.
+1. [Releases](https://github.com/ikozinov/mcp-debug-tools/releases)로 이동합니다.
 2. OS 및 아키텍처(예: Linux x64, macOS arm64)에 맞는 바이너리를 다운로드합니다.
 3. 압축을 풀고 시스템 경로에 `mcp-debug-tools` 바이너리를 배치합니다.
 
@@ -373,7 +373,7 @@ AI (규칙 사용):
 
 ## 📄 라이선스
 
-GNU General Public License v3.0 - [LICENSE](https://github.com/hwanyong/mcp-debug-tools/blob/main/LICENSE)
+GNU General Public License v3.0 - [LICENSE](https://github.com/ikozinov/mcp-debug-tools/blob/main/LICENSE)
 
 ## 🤝 기여
 

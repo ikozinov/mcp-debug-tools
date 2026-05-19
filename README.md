@@ -94,7 +94,7 @@ Provides debugging capabilities as a server in VSCode.
 - [MCP Debug Tools on VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=uhd.mcp-debug-tools)
 
 **Method 3: Download Link**
-- [Releases](https://github.com/hwanyong/mcp-debug-tools/releases)
+- [Releases](https://github.com/ikozinov/mcp-debug-tools/releases)
 
 ### 2. CLI Tool
 
@@ -102,11 +102,11 @@ Client that connects AI tools with VSCode.
 
 **Method 1: Go Install**
 ```bash
-go install github.com/hwanyong/mcp-debug-tools/cmd/mcp-debug-tools@latest
+go install github.com/ikozinov/mcp-debug-tools/cmd/mcp-debug-tools@latest
 ```
 
 **Method 2: Download Release Binary**
-1. Go to [Releases](https://github.com/hwanyong/mcp-debug-tools/releases)
+1. Go to [Releases](https://github.com/ikozinov/mcp-debug-tools/releases)
 2. Download the appropriate binary for your OS and architecture (e.g., Linux x64, macOS arm64).
 3. Extract and place the `mcp-debug-tools` binary in your system path.
 
@@ -373,7 +373,7 @@ For the complete rules and patterns, see [`MCP_DEBUG_TOOLS_RULES.md`](./MCP_DEBU
 
 ## 📄 License
 
-GNU General Public License v3.0 - [LICENSE](https://github.com/hwanyong/mcp-debug-tools/blob/main/LICENSE)
+GNU General Public License v3.0 - [LICENSE](https://github.com/ikozinov/mcp-debug-tools/blob/main/LICENSE)
 
 ## 🤝 Contributing
 

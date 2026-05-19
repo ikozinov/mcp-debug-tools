@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/hwanyong/mcp-debug-tools/pkg/action"
-	"github.com/hwanyong/mcp-debug-tools/pkg/config"
-	"github.com/hwanyong/mcp-debug-tools/pkg/proxy"
+	"github.com/ikozinov/mcp-debug-tools/pkg/action"
+	"github.com/ikozinov/mcp-debug-tools/pkg/config"
+	"github.com/ikozinov/mcp-debug-tools/pkg/proxy"
 	"github.com/mark3labs/mcp-go/server"
 )
 
