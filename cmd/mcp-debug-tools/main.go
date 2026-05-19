@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"flag"
 	"fmt"
 	"os"
 
@@ -9,7 +10,6 @@ import (
 	"github.com/hwanyong/mcp-debug-tools/pkg/config"
 	"github.com/hwanyong/mcp-debug-tools/pkg/proxy"
 	"github.com/mark3labs/mcp-go/server"
-	"github.com/spf13/cobra"
 )
 
 var (
@@ -76,71 +76,46 @@ func startProxy(serverUrl string) {
 }
 
 func main() {
-	rootCmd := &cobra.Command{
-		Use:     "mcp-debug-tools",
-		Short:   "CLI and MCP proxy for VSCode debugging via DAP",
-		Version: "1.0.2",
-		Run: func(cmd *cobra.Command, args []string) {
-			serverUrl := getServerUrl()
-			startProxy(serverUrl)
-		},
+	flag.IntVar(&portFlag, "port", 0, "DAP Proxy server port (disables auto discovery)")
+	flag.StringVar(&domainFlag, "domain", "http://localhost", "DAP Proxy server domain")
+	flag.BoolVar(&noAutoFlag, "no-auto", false, "Disable automatic VSCode discovery")
+
+	flag.Parse()
+
+	args := flag.Args()
+
+	command := "proxy"
+	if len(args) > 0 {
+		command = args[0]
 	}
 
-	rootCmd.PersistentFlags().IntVar(&portFlag, "port", 0, "DAP Proxy server port (disables auto discovery)")
-	rootCmd.PersistentFlags().StringVar(&domainFlag, "domain", "http://localhost", "DAP Proxy server domain")
-	rootCmd.PersistentFlags().BoolVar(&noAutoFlag, "no-auto", false, "Disable automatic VSCode discovery")
+	serverUrl := getServerUrl()
 
-	proxyCmd := &cobra.Command{
-		Use:   "proxy",
-		Short: "Start the stdio MCP proxy (Default)",
-		Run: func(cmd *cobra.Command, args []string) {
-			serverUrl := getServerUrl()
-			startProxy(serverUrl)
-		},
-	}
-
-	listCmd := &cobra.Command{
-		Use:   "list",
-		Short: "List all available MCP tools and resources from the VSCode extension",
-		Run: func(cmd *cobra.Command, args []string) {
-			serverUrl := getServerUrl()
-			action.ListToolsAndResources(serverUrl)
-		},
-	}
-
-	callCmd := &cobra.Command{
-		Use:   "call [toolName] [argsJson]",
-		Short: "Call a specific MCP tool directly and print the JSON result",
-		Args:  cobra.RangeArgs(1, 2),
-		Run: func(cmd *cobra.Command, args []string) {
-			serverUrl := getServerUrl()
-			toolName := args[0]
-			argsJson := ""
-			if len(args) > 1 {
-				argsJson = args[1]
-			}
-			action.CallTool(serverUrl, toolName, argsJson)
-		},
-	}
-
-	readCmd := &cobra.Command{
-		Use:   "read [resourceUri]",
-		Short: "Read a specific MCP resource directly and print the JSON result",
-		Args:  cobra.ExactArgs(1),
-		Run: func(cmd *cobra.Command, args []string) {
-			serverUrl := getServerUrl()
-			resourceUri := args[0]
-			action.ReadResource(serverUrl, resourceUri)
-		},
-	}
-
-	rootCmd.AddCommand(proxyCmd)
-	rootCmd.AddCommand(listCmd)
-	rootCmd.AddCommand(callCmd)
-	rootCmd.AddCommand(readCmd)
-
-	if err := rootCmd.Execute(); err != nil {
-		fmt.Fprintf(os.Stderr, "Fatal error: %v\n", err)
+	switch command {
+	case "list":
+		action.ListToolsAndResources(serverUrl)
+	case "call":
+		if len(args) < 2 {
+			fmt.Fprintf(os.Stderr, "Usage: mcp-debug-tools call [toolName] [argsJson]\n")
+			os.Exit(1)
+		}
+		toolName := args[1]
+		argsJson := ""
+		if len(args) > 2 {
+			argsJson = args[2]
+		}
+		action.CallTool(serverUrl, toolName, argsJson)
+	case "read":
+		if len(args) < 2 {
+			fmt.Fprintf(os.Stderr, "Usage: mcp-debug-tools read [resourceUri]\n")
+			os.Exit(1)
+		}
+		resourceUri := args[1]
+		action.ReadResource(serverUrl, resourceUri)
+	case "proxy":
+		startProxy(serverUrl)
+	default:
+		fmt.Fprintf(os.Stderr, "Unknown command: %s\n", command)
 		os.Exit(1)
 	}
 }
